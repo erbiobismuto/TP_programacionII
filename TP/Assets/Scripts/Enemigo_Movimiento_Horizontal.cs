@@ -14,13 +14,17 @@ public class EnemigoIA : MonoBehaviour
     private bool regresando = false;
 
     private Rigidbody2D miRigidbody2D;
+    private SpriteRenderer miSprite;
 
-    private void Awake()
+    private void OnEnable()
     {
         miRigidbody2D = GetComponent<Rigidbody2D>();
+        miSprite = GetComponent<SpriteRenderer>();
         posicionInicial = transform.position;
         CalcularSiguienteDestino();
     }
+
+
 
     private void FixedUpdate()
     {
@@ -31,6 +35,8 @@ public class EnemigoIA : MonoBehaviour
         {
             CalcularSiguienteDestino();
         }
+
+        miSprite.flipX = direccion.x < 0;
     }
 
     private void CalcularSiguienteDestino()
