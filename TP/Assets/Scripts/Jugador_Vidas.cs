@@ -22,8 +22,17 @@ public class Jugador : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.gameObject.CompareTag("Finish")) { return; }
+        if (collision.gameObject.CompareTag("Finish")) {  
+            NotifySpawner();
+         }
+    }
 
-        Debug.Log("GANASTE");
+    private void NotifySpawner()
+    {
+        GeneradorObjeto spawner = FindObjectOfType<GeneradorObjeto>();
+        if (spawner != null)
+        {
+            spawner.SpawnBoss();
+        }
     }
 }

@@ -1,11 +1,28 @@
 using UnityEngine;
 
-public class Herir : MonoBehaviour
+public class BHerir : MonoBehaviour
 {
     [Header("Configuration")]
     [SerializeField] float damagePoints = 5f;
-    [SerializeField] float jumpForce = 10f;
+    [SerializeField] float jumpForce = 1.0f;
 
+    private GeneradorObjeto generadorObjeto;
+    private int count;
+    private int deaths = 0;
+
+    private void Start()
+    {
+        generadorObjeto = FindObjectOfType<GeneradorObjeto>();
+    }
+    
+    private void Update() 
+    {
+        count = generadorObjeto.GetBossesCount();
+        if(count <= deaths)
+        {
+             Debug.Log(" You win ");
+        }
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Jugador jugador = collision.gameObject.GetComponent<Jugador>();
@@ -15,7 +32,8 @@ public class Herir : MonoBehaviour
             if (IsCollidingFromAbove(collision))
             {
                 playerRb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-                NotifySpawnerAndDestroy();
+                Destroy(gameObject);
+                deaths++;
             }
             else
             {
@@ -38,13 +56,4 @@ public class Herir : MonoBehaviour
         return false;
     }
 
-    private void NotifySpawnerAndDestroy()
-    {
-        GeneradorObjeto spawner = FindObjectOfType<GeneradorObjeto>();
-        if (spawner != null)
-        {
-            spawner.RespawnEnemyAt(transform.position, gameObject.tag);
-        }
-        Destroy(gameObject);
-    }
 }

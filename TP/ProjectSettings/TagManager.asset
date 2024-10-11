@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Meta
+  - 1
+  - 0
+  - Spike
+  - Platform
+  - PS
   layers:
   - Default
   - TransparentFX

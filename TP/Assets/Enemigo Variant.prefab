@@ -12,6 +12,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemigo Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1784080745681733881, guid: db33c78776a2e014194bed02ae74afe9, type: 3}
+      propertyPath: m_TagString
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5559934729451884958, guid: db33c78776a2e014194bed02ae74afe9, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 66bc9479057d53e46945f09ae6d612f4, type: 2}
     - target: {fileID: 6331598960879659813, guid: db33c78776a2e014194bed02ae74afe9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.51
