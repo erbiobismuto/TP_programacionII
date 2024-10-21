@@ -7,7 +7,7 @@ public class GeneradorObjeto : MonoBehaviour
     [SerializeField] private GameObject[] objetoPrefabs;
     [SerializeField] private float respawnDelay = 3f;
     [SerializeField] private GameObject bossPrefab;
-    [SerializeField] private List<string> toDelete = new List<string> { "0", "1", "Spike","Platform", "PS", "Finish" };
+    [SerializeField] private List<string> toDelete = new List<string> { "0", "1", "Spike","Platform", "PS", "Finish", "Coleccionable" };
     [SerializeField] private float bossSpawnDuration = 15f;
     [SerializeField] private float bossSpawnInterval = 1f;
 

@@ -10,6 +10,7 @@ TagManager:
   - Spike
   - Platform
   - PS
+  - Coleccionable
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - UI
   - Plataforma
   - Enemigo
-  - 
+  - Collect
   - 
   - 
   - 

@@ -5,6 +5,7 @@ public class BHerir : MonoBehaviour
     [Header("Configuration")]
     [SerializeField] float damagePoints = 5f;
     [SerializeField] float jumpForce = 1.0f;
+    [SerializeField] private Progresion progresion;
 
     private GeneradorObjeto generadorObjeto;
     private int count;
@@ -12,6 +13,7 @@ public class BHerir : MonoBehaviour
 
     private void Start()
     {
+        progresion = FindObjectOfType<Progresion>();
         generadorObjeto = FindObjectOfType<GeneradorObjeto>();
     }
     
@@ -20,7 +22,8 @@ public class BHerir : MonoBehaviour
         count = generadorObjeto.GetBossesCount();
         if(count <= deaths)
         {
-             Debug.Log(" You win ");
+             progresion.SubirNivel();
+             Debug.Log("You win ");
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
