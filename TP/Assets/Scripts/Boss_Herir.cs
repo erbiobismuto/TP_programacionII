@@ -3,60 +3,35 @@ using UnityEngine;
 public class BHerir : MonoBehaviour
 {
     [Header("Configuration")]
-    [SerializeField] float damagePoints = 5f;
-    [SerializeField] float jumpForce = 1.0f;
+    [SerializeField] private float damagePoints = 5f;
+    [SerializeField] private float jumpForce = 1.0f;
     [SerializeField] private Progresion progresion;
 
     private GeneradorObjeto generadorObjeto;
+    private IEnemyDeathTracker deathTracker;
+    private ICollisionHandler collisionHandler;
+    private IProgressionChecker progressionChecker;
     private int count;
-    private int deaths = 0;
 
     private void Start()
     {
         progresion = FindObjectOfType<Progresion>();
         generadorObjeto = FindObjectOfType<GeneradorObjeto>();
+        
+        // Initialize helper classes
+        deathTracker = new EnemyDeathTracker();
+        collisionHandler = new CollisionHandler(damagePoints, jumpForce, deathTracker);
+        progressionChecker = new ProgressionChecker(progresion);
     }
-    
-    private void Update() 
+
+    private void Update()
     {
         count = generadorObjeto.GetBossesCount();
-        if(count <= deaths)
-        {
-             progresion.SubirNivel();
-             Debug.Log("You win ");
-        }
+        progressionChecker.CheckProgress(deathTracker.GetDeathCount(), count);
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Jugador jugador = collision.gameObject.GetComponent<Jugador>();
-        if (jugador != null)
-        {
-            Rigidbody2D playerRb = jugador.GetComponent<Rigidbody2D>();
-            if (IsCollidingFromAbove(collision))
-            {
-                playerRb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-                Destroy(gameObject);
-                deaths++;
-            }
-            else
-            {
-                jugador.ModificarVida(-damagePoints);
-            }
-
-        }
-        
+        collisionHandler.HandleCollision(collision, gameObject);
     }
-
-    private bool IsCollidingFromAbove(Collision2D collision)
-    {
-        foreach (ContactPoint2D contact in collision.contacts)
-        {
-            if (contact.normal.y < -0.5f)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
 }
